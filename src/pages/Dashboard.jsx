@@ -7,6 +7,7 @@ import {
   GET_EXPERIENCES,
 } from "../api/queries";
 import { useAuth } from "../hooks/useAuth";
+import ProfileManager from "../components/admin/ProfileManager";
 import CompetencesManager from "../components/admin/CompetencesManager";
 import ProjetsManager from "../components/admin/ProjetsManager";
 import ExperiencesManager from "../components/admin/ExperiencesManager";
@@ -184,10 +185,20 @@ const Dashboard = () => {
           {/* Tabs */}
           <div className="border-t pt-6 flex gap-4 flex-wrap">
             <button
+              onClick={() => setActiveTab("profil")}
+              className={`px-4 py-2 rounded font-semibold transition ${
+                activeTab === "profil"
+                  ? "bg-gray-900 text-white"
+                  : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+              }`}
+            >
+              👤 Profil
+            </button>
+            <button
               onClick={() => setActiveTab("view")}
               className={`px-4 py-2 rounded font-semibold transition ${
                 activeTab === "view"
-                  ? "bg-blue-600 text-white"
+                  ? "bg-gray-900 text-white"
                   : "bg-gray-200 text-gray-800 hover:bg-gray-300"
               }`}
             >
@@ -197,7 +208,7 @@ const Dashboard = () => {
               onClick={() => setActiveTab("competences")}
               className={`px-4 py-2 rounded font-semibold transition ${
                 activeTab === "competences"
-                  ? "bg-blue-600 text-white"
+                  ? "bg-gray-900 text-white"
                   : "bg-gray-200 text-gray-800 hover:bg-gray-300"
               }`}
             >
@@ -207,7 +218,7 @@ const Dashboard = () => {
               onClick={() => setActiveTab("projets")}
               className={`px-4 py-2 rounded font-semibold transition ${
                 activeTab === "projets"
-                  ? "bg-blue-600 text-white"
+                  ? "bg-gray-900 text-white"
                   : "bg-gray-200 text-gray-800 hover:bg-gray-300"
               }`}
             >
@@ -217,7 +228,7 @@ const Dashboard = () => {
               onClick={() => setActiveTab("experiences")}
               className={`px-4 py-2 rounded font-semibold transition ${
                 activeTab === "experiences"
-                  ? "bg-blue-600 text-white"
+                  ? "bg-gray-900 text-white"
                   : "bg-gray-200 text-gray-800 hover:bg-gray-300"
               }`}
             >
@@ -227,6 +238,17 @@ const Dashboard = () => {
         </div>
 
         {/* Contenu des tabs */}
+        {activeTab === "profil" && (
+          <ProfileManager
+            profil={profil}
+            onRefetch={() => {
+              refetchCompetences();
+              refetchProjets();
+              refetchExperiences();
+            }}
+          />
+        )}
+
         {activeTab === "view" && (
           <div className="space-y-8">
             {/* Compétences */}

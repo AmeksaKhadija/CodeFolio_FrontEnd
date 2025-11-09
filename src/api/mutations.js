@@ -139,3 +139,20 @@ export const DELETE_EXPERIENCE = gql`
     }
   }
 `;
+
+// Profil
+export const UPDATE_PROFIL = gql`
+  mutation UpdateProfil($input: ProfilInput!) {
+    updateProfil(input: $input) {
+      id
+      nom
+      prenom
+      titre
+      bio
+      email
+      telephone
+      localisation
+      photo
+    }
+  }
+`;
